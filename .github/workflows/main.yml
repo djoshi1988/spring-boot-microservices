@@ -34,18 +34,51 @@ jobs:
           script: |
             sudo yum install -y java-1.8.0-openjdk
             
-      - name: Transfer JAR to EC2
+      - name: Transfer JAR1 to EC2
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: |
-             "./gatewayservice/target/gatewayservice-0.0.1-SNAPSHOT.jar"
-             "./counterservice/target/counterservice-0.0.1-SNAPSHOT.jar"
-             "./configservice/target/configservice-0.0.1-SNAPSHOT.jar"
-             "./registryservice/target/registryservice-0.0.1-SNAPSHOT.jar"
-             "./docker-compose.yml"
+          source: "./gatewayservice/target/gatewayservice-0.0.1-SNAPSHOT.jar"
+          target: "/home/ec2-user"
+          
+      - name: Transfer JAR2 to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "./counterservice/target/counterservice-0.0.1-SNAPSHOT.jar"
+          target: "/home/ec2-user"
+          
+      - name: Transfer JAR3 to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "./configservice/target/configservice-0.0.1-SNAPSHOT.jar"
+          target: "/home/ec2-user"
+          
+          
+      - name: Transfer JAR4 to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "./registryservice/target/registryservice-0.0.1-SNAPSHOT.jar"
+          target: "/home/ec2-user"
+          
+          
+      - name: Transfer JAR5 to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "./docker-compose.yml"
           target: "/home/ec2-user"
        
 
