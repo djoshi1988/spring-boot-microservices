@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: |
-             "gatewayservice/target/gatewayservice-0.0.1-SNAPSHOT.jar"             
+             "./gatewayservice/target/gatewayservice-0.0.1-SNAPSHOT.jar"             
           target: "/home/ec2-user"
           
       - name: Install Docker on EC2
