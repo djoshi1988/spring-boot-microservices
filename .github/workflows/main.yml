@@ -24,6 +24,7 @@ jobs:
       - name: Build with Maven
         run: |                   
           mvn clean package -DskipTests
+          pwd
             
       - name: Transfer JAR to EC2
         uses: appleboy/scp-action@master
