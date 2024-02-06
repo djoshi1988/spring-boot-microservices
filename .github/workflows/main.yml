@@ -22,10 +22,7 @@ jobs:
           java-version: '8'      
 
       - name: Build with Maven
-        run: |
-          pwd
-          ls -ltr                    
-          cd spring-boot-microservices          
+        run: |                   
           mvn clean package -DskipTests
           
       - name: Install Java 8 on EC2
@@ -44,11 +41,11 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: |
-             "./spring-boot-microservices/gatewayservice/target/gatewayservice-0.0.1-SNAPSHOT.jar"
-             "./spring-boot-microservices/counterservice/target/counterservice-0.0.1-SNAPSHOT.jar"
-             "./spring-boot-microservices/configservice/target/configservice-0.0.1-SNAPSHOT.jar"
-             "./spring-boot-microservices/registryservice/target/registryservice-0.0.1-SNAPSHOT.jar"
-             "./spring-boot-microservices/docker-compose.yml"
+             "gatewayservice/target/gatewayservice-0.0.1-SNAPSHOT.jar"
+             "counterservice/target/counterservice-0.0.1-SNAPSHOT.jar"
+             "configservice/target/configservice-0.0.1-SNAPSHOT.jar"
+             "registryservice/target/registryservice-0.0.1-SNAPSHOT.jar"
+             "docker-compose.yml"
           target: "/home/ec2-user"
           
       - name: Install Docker on EC2
@@ -63,11 +60,4 @@ jobs:
             sudo service docker start
             sudo usermod -aG docker $USER  # Optional: Allow running Docker without sudo
 
-      - name: Run App in the background
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            nohup /home/ec2-user/shopping/target/docker-compose up --build > microservice.log 2>&1 &
+     
